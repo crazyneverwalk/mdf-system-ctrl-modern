@@ -48,7 +48,7 @@ export default function HomePage() {
               </a>
               <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700">
                 <Phone className="h-4 w-4 mr-2" />
-                Contacto
+                Llamar Ahora
               </Button>
             </nav>
           </div>
@@ -349,13 +349,20 @@ export default function HomePage() {
                     <div className="bg-blue-100 p-3 rounded-lg">
                       <Phone className="h-5 w-5 text-blue-600" />
                     </div>
+                    <div>
+                      <h5 className="font-medium text-slate-800">Teléfono</h5>
+                      <p className="text-slate-600">+54 11 XXXX-XXXX</p>
+                      <p className="text-sm text-slate-500">Lunes a Viernes 9:00 - 18:00</p>
+                    </div>
+                  </div>
+
                   <div className="flex items-start space-x-4">
                     <div className="bg-green-100 p-3 rounded-lg">
                       <Mail className="h-5 w-5 text-green-600" />
                     </div>
                     <div>
                       <h5 className="font-medium text-slate-800">Email</h5>
-                      <p className="text-slate-600">contacto@mdfsystemctrl.com.ar</p>
+                      <p className="text-slate-600">info@mdfsystemctrl.com.ar</p>
                       <p className="text-sm text-slate-500">Respuesta en 24 horas</p>
                     </div>
                   </div>
@@ -438,7 +445,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="text-center md:text-right">
-              <p className="text-slate-400 text-sm">© 2025 MDF System Ctrl. Todos los derechos reservados.</p>
+              <p className="text-slate-400 text-sm">© 2024 MDF System Ctrl. Todos los derechos reservados.</p>
               <p className="text-slate-500 text-xs mt-1">Reparación y mantenimiento de sistemas informáticos</p>
             </div>
           </div>
