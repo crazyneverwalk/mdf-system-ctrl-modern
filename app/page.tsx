@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -21,6 +22,47 @@ import {
 } from "lucide-react"
 
 export default function HomePage() {
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState(''); // 'success', 'error', 'sending', ''
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setStatus('sending');
+
+    const formData = {
+      name,
+      phone,
+      email,
+      message,
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setName('');
+        setPhone('');
+        setEmail('');
+        setMessage('');
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error('Error sending form:', error);
+      setStatus('error');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Header */}
@@ -386,44 +428,68 @@ export default function HomePage() {
                   <CardDescription>Describe tu problema y te contactaremos a la brevedad</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
+                  <form onSubmit={handleSubmit}>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="name" className="text-sm font-medium text-slate-700 block mb-2">Nombre</label>
+                        <input
+                          type="text"
+                          id="name"
+                          className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          placeholder="Tu nombre"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="phone" className="text-sm font-medium text-slate-700 block mb-2">Teléfono</label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          placeholder="Tu teléfono"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          required
+                        />
+                      </div>
+                    </div>
                     <div>
-                      <label className="text-sm font-medium text-slate-700 block mb-2">Nombre</label>
+                      <label htmlFor="email" className="text-sm font-medium text-slate-700 block mb-2">Email</label>
                       <input
-                        type="text"
+                        type="email"
+                        id="email"
                         className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="Tu nombre"
+                        placeholder="tu@email.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-slate-700 block mb-2">Teléfono</label>
-                      <input
-                        type="tel"
+                      <label htmlFor="message" className="text-sm font-medium text-slate-700 block mb-2">Describe tu problema</label>
+                      <textarea
+                        id="message"
+                        rows={4}
                         className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="Tu teléfono"
+                        placeholder="Cuéntanos qué problema tienes con tu equipo..."
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        required
                       />
                     </div>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-slate-700 block mb-2">Email</label>
-                    <input
-                      type="email"
-                      className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="tu@email.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-slate-700 block mb-2">Describe tu problema</label>
-                    <textarea
-                      rows={4}
-                      className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Cuéntanos qué problema tienes con tu equipo..."
-                    />
-                  </div>
-                  <Button className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700">
-                    <Mail className="h-4 w-4 mr-2" />
-                    Enviar Consulta
-                  </Button>
+                    <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700" disabled={status === 'sending'}>
+                      <Mail className="h-4 w-4 mr-2" />
+                      {status === 'sending' ? 'Enviando...' : 'Enviar Consulta'}
+                    </Button>
+                    {status === 'success' && (
+                      <p className="text-green-600 mt-4 text-center">¡Mensaje enviado con éxito! Te contactaremos pronto.</p>
+                    )}
+                    {status === 'error' && (
+                      <p className="text-red-600 mt-4 text-center">Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.</p>
+                    )}
+                  </form>
                 </CardContent>
               </Card>
             </div>
