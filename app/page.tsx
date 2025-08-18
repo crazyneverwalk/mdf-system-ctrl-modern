@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Logo } from "@/components/Logo"
 import { Badge } from "@/components/ui/badge"
 import {
   Cpu,
@@ -27,15 +28,7 @@ export default function HomePage() {
       <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="bg-gradient-to-br from-blue-600 to-cyan-600 p-2 rounded-lg">
-                <Settings className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-slate-800">MDF System Ctrl</h1>
-                <p className="text-sm text-slate-600">Soporte Técnico Profesional</p>
-              </div>
-            </div>
+            <Logo />
             <nav className="hidden md:flex items-center space-x-6">
               <a href="#servicios" className="text-slate-600 hover:text-blue-600 transition-colors">
                 Servicios
@@ -52,22 +45,25 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-
+      <section
+        className="relative py-40 bg-cover bg-center text-white"
+        style={{ backgroundImage: "url('/images/hero-background.jpg')" }}
+      >
+        <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" />
         <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
-            <Badge className="mb-6 bg-blue-100 text-blue-700 hover:bg-blue-200">
+            <Badge className="mb-6 bg-white/10 text-blue-300 hover:bg-white/20 border border-white/20">
               <Zap className="h-3 w-3 mr-1" />
               Soporte Técnico Especializado
             </Badge>
-            <h2 className="text-4xl md:text-6xl font-bold text-slate-800 mb-6 leading-tight">
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
               Reparación y Mantenimiento de
-              <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 {" "}
                 Sistemas Informáticos
               </span>
             </h2>
-            <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
               Nos especializamos en la reparación, mantenimiento y análisis de equipos y sistemas
               informáticos/electrónicos, adaptándonos a los requisitos específicos de cada cliente.
             </p>
@@ -80,7 +76,7 @@ export default function HomePage() {
                 Solicitar Servicio
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
-              <Button size="lg" variant="outline" className="border-slate-300 hover:bg-slate-50">
+              <Button size="lg" variant="outline" className="border-slate-300 text-white hover:bg-white/10">
                 <HeadphonesIcon className="h-5 w-5 mr-2" />
                 Consulta Gratuita
               </Button>
@@ -424,15 +420,7 @@ export default function HomePage() {
       <footer className="bg-slate-800 text-white py-12">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <div className="bg-gradient-to-br from-blue-600 to-cyan-600 p-2 rounded-lg">
-                <Settings className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold">MDF System Ctrl</h1>
-                <p className="text-sm text-slate-400">Soporte Técnico Profesional</p>
-              </div>
-            </div>
+            <Logo textClassName="text-white" subtextClassName="text-slate-400" />
             <div className="text-center md:text-right">
               <p className="text-slate-400 text-sm">© 2024 MDF System Ctrl. Todos los derechos reservados.</p>
               <p className="text-slate-500 text-xs mt-1">Reparación y mantenimiento de sistemas informáticos</p>
