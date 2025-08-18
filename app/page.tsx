@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -11,7 +10,6 @@ import {
   Shield,
   Clock,
   Users,
-  Phone,
   Mail,
   MapPin,
   CheckCircle,
@@ -22,56 +20,16 @@ import {
 } from "lucide-react"
 
 export default function HomePage() {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [status, setStatus] = useState(''); // 'success', 'error', 'sending', ''
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setStatus('sending');
-
-    const formData = {
-      name,
-      phone,
-      email,
-      message,
-    };
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setStatus('success');
-        setName('');
-        setPhone('');
-        setEmail('');
-        setMessage('');
-      } else {
-        setStatus('error');
-      }
-    } catch (error) {
-      console.error('Error sending form:', error);
-      setStatus('error');
-    }
-  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="min-h-screen bg-slate-100">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="bg-gradient-to-br from-blue-600 to-cyan-600 p-2 rounded-lg">
-                <Cpu className="h-6 w-6 text-white" />
+                <Settings className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h1 className="text-xl font-bold text-slate-800">MDF System Ctrl</h1>
@@ -88,10 +46,6 @@ export default function HomePage() {
               <a href="#contacto" className="text-slate-600 hover:text-blue-600 transition-colors">
                 Contacto
               </a>
-              <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700">
-                <Phone className="h-4 w-4 mr-2" />
-                Llamar Ahora
-              </Button>
             </nav>
           </div>
         </div>
@@ -99,23 +53,6 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-cyan-600/10"></div>
-        <div className="absolute inset-0 opacity-5">
-          <svg className="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="circuit" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                <path
-                  d="M 0 10 L 10 10 L 10 0 M 10 10 L 20 10 M 10 10 L 10 20"
-                  stroke="currentColor"
-                  strokeWidth="0.5"
-                  fill="none"
-                />
-                <circle cx="10" cy="10" r="1" fill="currentColor" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#circuit)" />
-          </svg>
-        </div>
 
         <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
@@ -336,7 +273,7 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section id="nosotros" className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+      <section id="nosotros" className="py-20 bg-slate-100">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-blue-100 text-blue-700">¿Por qué elegirnos?</Badge>
@@ -389,7 +326,7 @@ export default function HomePage() {
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
                     <div className="bg-blue-100 p-3 rounded-lg">
-                      <Phone className="h-5 w-5 text-blue-600" />
+                      <Mail className="h-5 w-5 text-blue-600" />
                     </div>
                     <div>
                       <h5 className="font-medium text-slate-800">Teléfono</h5>
@@ -428,7 +365,7 @@ export default function HomePage() {
                   <CardDescription>Describe tu problema y te contactaremos a la brevedad</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <form onSubmit={handleSubmit}>
+                  <form>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="name" className="text-sm font-medium text-slate-700 block mb-2">Nombre</label>
@@ -437,8 +374,6 @@ export default function HomePage() {
                           id="name"
                           className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           placeholder="Tu nombre"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
                           required
                         />
                       </div>
@@ -449,8 +384,6 @@ export default function HomePage() {
                           id="phone"
                           className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           placeholder="Tu teléfono"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
                           required
                         />
                       </div>
@@ -462,8 +395,6 @@ export default function HomePage() {
                         id="email"
                         className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         placeholder="tu@email.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
                         required
                       />
                     </div>
@@ -474,21 +405,13 @@ export default function HomePage() {
                         rows={4}
                         className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         placeholder="Cuéntanos qué problema tienes con tu equipo..."
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
                         required
                       />
                     </div>
-                    <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700" disabled={status === 'sending'}>
+                    <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700">
                       <Mail className="h-4 w-4 mr-2" />
-                      {status === 'sending' ? 'Enviando...' : 'Enviar Consulta'}
+                      Enviar Consulta
                     </Button>
-                    {status === 'success' && (
-                      <p className="text-green-600 mt-4 text-center">¡Mensaje enviado con éxito! Te contactaremos pronto.</p>
-                    )}
-                    {status === 'error' && (
-                      <p className="text-red-600 mt-4 text-center">Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.</p>
-                    )}
                   </form>
                 </CardContent>
               </Card>
@@ -503,7 +426,7 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-3 mb-4 md:mb-0">
               <div className="bg-gradient-to-br from-blue-600 to-cyan-600 p-2 rounded-lg">
-                <Cpu className="h-6 w-6 text-white" />
+                <Settings className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h1 className="text-xl font-bold">MDF System Ctrl</h1>
