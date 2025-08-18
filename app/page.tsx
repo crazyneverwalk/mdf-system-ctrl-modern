@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Logo } from "@/components/Logo"
+import { Logo } from "./components/Logo"
 import { Badge } from "@/components/ui/badge"
 import {
   Cpu,
